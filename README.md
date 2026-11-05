@@ -4,7 +4,7 @@ An interactive app for learning Bayes' theorem through a baseball example. It pr
 
 The app is meant as a teaching tool, not a production forecasting model. It favors clear, visible math over predictive precision.
 
-**Live app:** `https://patrick-lefler.github.io/<repo-name>/`
+**Live app:** https://patrick-lefler.com/bayes_batting_avg_learning_app/
 
 ## What the App Shows
 
