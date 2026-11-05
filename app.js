@@ -324,11 +324,17 @@ The talent estimate (${fmt(s.p)}) still differs: one season can't settle true ab
     const cmp = (d, up, down, same) => Math.abs(d) < 0.0005 ? same : d > 0 ? up : down;
     const note = ex === step
       ? `Worked numbers below use your current inputs and the window selected in the Simulator (game ${s.g}).`
-      : `Worked numbers below use your current inputs at game ${s.g}. Select a window from 10 to 150 in the Simulator to change it.`;
+      : step === 0
+        ? `Preseason is selected in the Simulator. Worked numbers from section 2 onward use game ${s.g}, the first window with data. Select a window from 10 to 150 to change it.`
+        : `Worked numbers below use your current inputs at game ${s.g}. Select a window from 10 to 150 in the Simulator to change it.`;
     const startTxt = sa == null
       ? `After ${s.g} games our batter has no at-bats yet.`
       : `After ${s.g} games our batter is hitting <b>${fmt(sa)}</b> (${s.H} for ${s.AB}).`;
     const histTxt = sa == null ? '' : cmp(sa - pm, ` That's ${pts(sa - pm)} points above what his history suggests.`, ` That's ${pts(sa - pm)} points below what his history suggests.`, ' That matches his history.');
+    const s0 = m.states[0];
+    const q1Txt = step === 0
+      ? `It's preseason, so our batter has no at-bats yet and there's nothing to update on. The Bayes estimate rests entirely on the prior: his two previous seasons, weighted ${W(w1)} and ${W(w2)}, say he is a <b>${fmt(pm)}</b> hitter, which projects a <b>${fmt(s0.mean)}</b> final average (95% range ${fmt(s0.lo)}–${fmt(s0.hi)}) with no posterior yet.`
+      : `${startTxt} His two previous seasons, weighted ${W(w1)} and ${W(w2)}, say he is a <b>${fmt(pm)}</b> hitter.${histTxt}`;
     const poolN = ab1 + ab2, poolMean = poolN ? (h1 + h2) / poolN : NaN;
     const wShare = s.AB / (s.AB + N0);
     const talentVsStart = sa == null ? '' : cmp(s.p - sa,
@@ -349,7 +355,7 @@ The talent estimate (${fmt(s.p)}) still differs: one season can't settle true ab
       <section class="card">
         <h2 class="g">1. The Question</h2>
         <p class="guide-note">${note}</p>
-        <p>${startTxt} His two previous seasons, weighted ${W(w1)} and ${W(w2)}, say he is a <b>${fmt(pm)}</b> hitter.${histTxt} What will he hit by game 160, and how sure can we be?</p>
+        <p>${q1Txt} What will he hit by game 160, and how sure can we be?</p>
         <p>Bayes' theorem answers both questions with one rule: <b>posterior ∝ likelihood × prior</b>. We start with what history says (the prior), weigh it against what we've seen this season (the likelihood), and end up with an updated belief (the posterior). That posterior becomes the prior for the next 10 games.</p>
         <div class="callout"><b>Yesterday's posterior is today's prior.</b> Updating once with all 160 games gives exactly the same answer as updating 16 times, 10 games at a time. Bayes only cares about total hits and total outs, not the order they came in.</div>
       </section>
