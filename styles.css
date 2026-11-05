@@ -146,3 +146,6 @@ table.log{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 .guide-dyn{display:flex;flex-direction:column;gap:18px}
 .guide-note{font-size:12.5px;color:var(--faint);margin:0}
+.credits a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(111,211,160,.35);word-break:break-word}
+.credits a:hover{border-bottom-color:var(--accent)}
+.credits li{margin-bottom:8px;line-height:1.55}
