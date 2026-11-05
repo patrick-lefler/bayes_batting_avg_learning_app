@@ -94,4 +94,4 @@ Patrick Lefler · Seeking Eureka
 
 ## License
 
-`<Add your chosen license, for example MIT, and include a LICENSE file.>`
+MIT License
